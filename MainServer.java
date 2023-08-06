@@ -24,16 +24,39 @@ public class MainServer {
         String inputLine;
         while ((inputLine = clientIn.readLine()) != null) {
 
-            // Enviar números al primer y al segundo servidor de operación
+            // Enviar números al primer operador (suma los numeros)
             out1.println(inputLine);
-            out2.println(inputLine);
 
-            // Recibir los resultados de los servidores de operación
+            // Recibir los resultados del primer servidor de operación
             String sumResult = in1.readLine();
-            String diffResult = in2.readLine();
+            String res1 = sumResult;
+            
+            // envia el resultado de la suma al operador 2 (multiplica el resultado por 10)
+            out2.println(sumResult);
+
+            // Recibir los resultados del segundo servidor de operación
+            String multResult = in2.readLine();
+            String res2 = multResult;
 
             // Enviar los resultados al cliente
-            clientOut.println("Resultado de la suma: " + sumResult + ", Resultado de la resta: " + diffResult);
+            clientOut.println("Resultado de la suma: " + res1 + ", Resultado de la multiplicacion: " + res2);
         }
+
+        // Cerrar los sockets
+        clientIn.close();
+        clientOut.close();
+        clientSocket.close();
+
+        in1.close();
+        out1.close();
+        socket1.close();
+
+        in2.close();
+        out2.close();
+        socket2.close();
+
+        serverSocket.close();
+        socket1.close();
+        socket2.close();
     }
 }

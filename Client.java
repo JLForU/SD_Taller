@@ -17,5 +17,11 @@ public class Client {
         String result = in.readLine();
 
         System.out.println("Resultado recibido del servidor: " + result);
+
+        // Cerrar los sockets
+        in.close();
+        out.close();
+        socket.close();
+
     }
 }

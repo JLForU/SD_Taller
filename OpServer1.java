@@ -18,5 +18,10 @@ public class OpServer1 {
             int sum = num1 + num2;
             out.println(sum);
         }
+
+        in.close();
+        out.close();
+        clientSocket.close();
+        serverSocket.close();
     }
 }

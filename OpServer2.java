@@ -12,11 +12,15 @@ public class OpServer2 {
 
         String inputLine;
         while ((inputLine = in.readLine()) != null) {
-            String[] numbers = inputLine.split(",");
-            int num1 = Integer.parseInt(numbers[0]);
-            int num2 = Integer.parseInt(numbers[1]);
-            int difference = num1 - num2;
-            out.println(difference);
+            int num = Integer.parseInt(inputLine);
+            int result = num * 10;
+            out.println(result);
         }
+
+        in.close();
+        out.close();
+        clientSocket.close();
+        serverSocket.close();
+        
     }
 }
