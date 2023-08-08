@@ -16,6 +16,7 @@ public class OpServer1 {
             int num1 = Integer.parseInt(numbers[0]);
             int num2 = Integer.parseInt(numbers[1]);
             int sum = num1 + num2;
+            
             out.println(sum);
         }
 
