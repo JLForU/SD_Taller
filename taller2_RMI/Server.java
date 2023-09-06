@@ -33,14 +33,24 @@ public class Server extends UnicastRemoteObject implements IServer{
             
             // buscar el objeto operador1 en el registro,
             // y si lo encuentra, crear el objeto local
-            IOperador1 op1 = (IOperador1)registry.lookup("Operador1");
+            try {
+            	IOperador1 op1 = (IOperador1)registry.lookup("Operador1");
+            	suma = op1.suma(a, b);
+    	    } catch ( RemoteException re ) {
+    	    	System.out.println ( "Error OP1" ) ;
+    	    	suma = a + b ;
+    	    }
             
             // buscar el objeto operador2 en el registro,
             // y si lo encuentra, crear el objeto local
-            IOperador2 op2 = (IOperador2)registry2.lookup("Operador2");
+            try {
+            	IOperador2 op2 = (IOperador2)registry2.lookup("Operador2");
+            	multiplicacion = op2.mult(suma);
+            } catch ( RemoteException re ) {
+            	System.out.println ( "Error OP2" ) ;
+            	multiplicacion = suma * 10 ;
+            }
             
-            suma = op1.suma(a, b);
-            multiplicacion = op2.mult(suma);
             resultado = Integer.toString(multiplicacion);
             
         } catch (NotBoundException e) {
