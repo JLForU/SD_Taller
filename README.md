@@ -1,5 +1,5 @@
-# SD_Taller-01
-Primer taller de Sistemas Distribuidos
+# SD_Taller
+Repositorio para taller de Sistemas Distribuidos.
 
 # Ejecución
 ## Linux
