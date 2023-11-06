@@ -10,7 +10,7 @@ import java.nio.charset.Charset ;
 
 
 
-/* IMPLEMENTACIÓN DE CLASE ´Operador_01´. */
+/* IMPLEMENTACIÓN DE CLASE ´Operador_02´. */
 
 public class Operador_02 {
 	
@@ -74,4 +74,4 @@ public class Operador_02 {
 
 
 
-//  To rest --->-->->    
+// FIN DE ARCHIVO.

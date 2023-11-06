@@ -18,24 +18,52 @@ public class Broker {
     public static void main ( String[] args ) {
 
         
-		// Elegir datos.
-		int int_primerNuumero = 2 ;
-		int int_segundoNuumero = 3 ;
-
-		// OP1 //
-		System.out.println ( "Enviar: " + int_primerNuumero + " y " + int_segundoNuumero ) ;
-        String primerResultado = funcioon_Operador_01 ( int_primerNuumero , int_segundoNuumero ) ;
-		System.out.println ( "Recibir: " + primerResultado ) ;
-		
-		// OP2 //
-		System.out.println ( "Enviar: " + primerResultado ) ;
-		String segundoResultado = funcioon_Operador_02 ( primerResultado ) ;
-		System.out.println ( "Recibir: " + segundoResultado ) ;
+			funcioon_Broker() ;
 
 
     }
 
-	public static String funcioon_Operador_01 ( int int_primerNuumero , int int_segundoNuumero ) {
+	public static void funcioon_Broker ( ) {
+
+		try (
+			
+			ZMQ.Context context = ZMQ.context(1) ;
+			ZMQ.Socket socket = context.socket ( ZMQ.REP ) ;
+			
+		) {
+
+			// Conectar.
+            socket.bind ( "tcp://localhost:5554" ) ;
+
+			// Recibir.
+			String primerNuumero = socket.recvStr ( Charset.defaultCharset() ) ;
+			String segundoNuumero = socket.recvStr ( Charset.defaultCharset() ) ;
+
+			// OP1 //
+			System.out.println ( "Enviar: " + primerNuumero + " y " + segundoNuumero ) ;
+        	String primerResultado = funcioon_Operador_01 ( primerNuumero , segundoNuumero ) ;
+			System.out.println ( "Recibir: " + primerResultado ) ;
+			
+			// OP2 //
+			System.out.println ( "Enviar: " + primerResultado ) ;
+			String segundoResultado = funcioon_Operador_02 ( primerResultado ) ;
+			System.out.println ( "Recibir: " + segundoResultado ) ;
+
+			// Enviar.
+			socket.send ( segundoResultado.getBytes() , ZMQ.NOBLOCK ) ;
+
+			// Desconectar.
+			socket.close() ;
+
+		} catch ( Exception e ) {
+
+			System.out.println ( "Error: " + e ) ;
+
+		}
+
+	}
+
+	public static String funcioon_Operador_01 ( String string_primerNuumero , String string_segundoNuumero ) {
 
 		String primerResultado = "0" ;
 
@@ -48,10 +76,6 @@ public class Broker {
 
 			// Conectar.
             socket.connect ( "tcp://localhost:5555" ) ;
-
-			// Convertir.
-			String string_primerNuumero = String.valueOf ( int_primerNuumero ) ;
-			String string_segundoNuumero = String.valueOf ( int_segundoNuumero ) ;
 
 			// Enviar.
 			socket.send ( string_primerNuumero.getBytes() , ZMQ.SNDMORE ) ;
