@@ -8,4 +8,4 @@ Repositorio para taller de Sistemas Distribuidos.
 2. `./script.sh`
 
 # Pendiente
-* Todo JZMQ.
+* Cliente <--RMI--> Servidor.
