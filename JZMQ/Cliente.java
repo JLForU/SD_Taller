@@ -1,10 +1,13 @@
+
 import java.rmi.NotBoundException ;
 import java.rmi.RemoteException ;
 import java.rmi.registry.LocateRegistry ;
 import java.rmi.registry.Registry ;
 
 
+
 public class Cliente {
+
     
     public static void main ( String[] args ) {
 
@@ -20,7 +23,7 @@ public class Cliente {
             
             // Buscar el objeto 'server' en el registro,
             // y si lo encuentra, crear el objeto local.
-            IServidor servidor = (IServidor) registry.lookup ( "server" ) ;
+            Interfaz_Servidor servidor = (Interfaz_Servidor) registry.lookup ( "server" ) ;
             
             // Usar el método `getResultado()` del objeto conectado.
             resultado = servidor.getResultado ( a , b ) ;
@@ -39,6 +42,5 @@ public class Cliente {
     }
 
 
-
-
 }
+

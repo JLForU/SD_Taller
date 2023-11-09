@@ -17,10 +17,11 @@ import java.rmi.server.UnicastRemoteObject ;
 
 /* IMPLEMENTACIÓN DE CLASE ´Servidor´. */
 
-public class Servidor extends UnicastRemoteObject implements Interfaz_Servidor{
+public class Servidor extends UnicastRemoteObject implements Interfaz_Servidor {
     
 
     protected Servidor() throws RemoteException {
+		//
 	}
 
 	//// IMPLEMENTACIÓN DE FUNCIÓN "MAIN". ////
@@ -45,13 +46,13 @@ public class Servidor extends UnicastRemoteObject implements Interfaz_Servidor{
 
     }
 
-	public String getResultado(int a, int b){
+	public String getResultado ( int a , int b ) {
 
 		System.out.println ( "Enviar: " + a + " y " + b ) ;
         String resultado = funcioon_Servidor ( a , b ) ;
 		System.out.println ( "Recibir: " + resultado ) ;
-		return resultado;
-		
+
+	return resultado ;	
 	}
 
 	public static String funcioon_Servidor ( int int_primerNuumero , int int_segundoNuumero ) {
