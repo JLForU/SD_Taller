@@ -7,27 +7,52 @@
 import org.zeromq.ZMQ ;
 import java.nio.charset.Charset ;
 
+import java.rmi.NotBoundException ;
+import java.rmi.RemoteException ;
+import java.rmi.registry.LocateRegistry ;
+import java.rmi.registry.Registry ;
+import java.rmi.server.UnicastRemoteObject ;
+
 
 
 /* IMPLEMENTACIÓN DE CLASE ´Servidor´. */
 
-public class Servidor {
+public class Servidor extends UnicastRemoteObject implements Interfaz_Servidor{
     
 
-    //// IMPLEMENTACIÓN DE FUNCIÓN "MAIN". ////
+    protected Servidor() throws RemoteException {
+	}
+
+	//// IMPLEMENTACIÓN DE FUNCIÓN "MAIN". ////
     public static void main ( String[] args ) {
 
-        
-		// Elegir datos.
-		int int_primerNuumero = 2 ;
-		int int_segundoNuumero = 3 ;
+		try {
 
-		System.out.println ( "Enviar: " + int_primerNuumero + " y " + int_segundoNuumero ) ;
-        String resultado = funcioon_Servidor ( int_primerNuumero , int_segundoNuumero ) ;
-		System.out.println ( "Recibir: " + resultado ) ;
-		
+            // Crear el objeto cuyos métodos podrá usar el cliente.
+            Servidor S = new Servidor() ;
+            
+            // Incluir el objeto en el registro del RMI en el puerto 1090,
+            // para que el cliente lo pueda encontrar.
+            Registry registry = LocateRegistry.createRegistry ( 1090 ) ;
+            registry.rebind ( "server" , S ) ;
+            System.out.println ( "Objeto 'server' registrado en RMI" ) ;
+        
+        } catch ( RemoteException e ) {
+
+        	System.out.println ( "Error: " + e ) ;
+
+        }
 
     }
+
+	public String getResultado(int a, int b){
+
+		System.out.println ( "Enviar: " + a + " y " + b ) ;
+        String resultado = funcioon_Servidor ( a , b ) ;
+		System.out.println ( "Recibir: " + resultado ) ;
+		return resultado;
+		
+	}
 
 	public static String funcioon_Servidor ( int int_primerNuumero , int int_segundoNuumero ) {
 
